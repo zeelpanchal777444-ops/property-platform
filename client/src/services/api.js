@@ -1,10 +1,12 @@
 import axios from "axios";
 
+// Use the deployed backend URL in production, localhost during local development
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: API_BASE_URL,
 });
 
-// Automatically attach the JWT token (if we have one) to every request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
